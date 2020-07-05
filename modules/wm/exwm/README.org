@@ -1,0 +1,7 @@
+* EXWM mode
+Use emacs as tiling window manager
+
+** Features
+*** TODO Setting resolution
+*** TODO Keymaps
+*** TODO Window Manage
