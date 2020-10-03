@@ -48,7 +48,7 @@
 (setq leetcode-prefer-language "rust")
 (setq leetcode-save-solutions t)
 (setq leetcode-directory "~/Git/leetcode_rust")
-(setq rustic-lsp-server 'rust-analyzer)
+;; (setq rustic-lsp-server 'rust-analyzer)
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
