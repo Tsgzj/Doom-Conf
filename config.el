@@ -49,6 +49,40 @@
 (setq leetcode-save-solutions t)
 (setq leetcode-directory "~/Git/leetcode_rust")
 (setq rustic-lsp-server 'rust-analyzer)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This section contains configuration for org mode ;;
+;; 1. GTD                                           ;;
+;; 2. Zettlekasten                                  ;;
+;; * org-roam                                       ;;
+;; * deft                                           ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq org-agenda-files '("~/org/GTD/"))
+
+(setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline "~/org/GTD/inbox.org" "Tasks")
+                               "* TODO %i%?")
+                              ("T" "Tickler" entry
+                               (file+headline "~/org/GTD/tickler.org" "Tickler")
+                               "* %i%? \n %U")))
+
+(setq org-refile-targets '(("~/org/GTD/Tickler.org" :maxlevel . 2)
+                           ("~/org/GTD/GTD.org" :maxlevel . 3)
+                           ("~/org/GTD/archive.org" :maxlevel . 3)))
+
+(setq org-agenda-custom-commands
+      '(("D" "Daily Action List"
+         ((agenda "" ((org-agenda-ndays 1)
+                      (org-agenda-sorting-strategy
+                       (quote ((agenda time-up priority-down tag-up) )))
+                      (org-deadline-warning-days 1)
+                      ))))
+        ("H" "Default view"
+         ((agenda)
+          (tags-todo "OFFICE")
+          (tags-todo "PERSONAL")
+          (tags-todo "COMPUTER")
+          (tags-todo "READING")))))
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
