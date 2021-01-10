@@ -41,7 +41,7 @@
 ;; Don't confirm to kill emacs
 (setq confirm-kill-emacs nil)
 
-(add-hook 'emacs-startup-hook 'eshell)
+;; (add-hook 'emacs-startup-hook 'eshell)
 (display-time-mode 1)
 (setq doom-theme 'doom-gruvbox)
 
