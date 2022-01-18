@@ -68,7 +68,7 @@
 
 (setq org-refile-targets '(("~/org/GTD/Tickler.org" :maxlevel . 2)
                            ("~/org/GTD/GTD.org" :maxlevel . 3)
-                           ("~/org/GTD/archive.org" :maxlevel . 3)))
+                           ("~/org/GTD/Archive.org" :maxlevel . 3)))
 
 (setq org-agenda-custom-commands
       '(("D" "Daily Action List"
@@ -83,6 +83,12 @@
           (tags-todo "PERSONAL")
           (tags-todo "COMPUTER")
           (tags-todo "READING")))))
+
+(evil-set-initial-state 'eshell 'normal)
+
+;; enable 3 state org-cycle
+(after! evil-org
+  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
