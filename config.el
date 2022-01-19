@@ -50,6 +50,9 @@
 (setq leetcode-directory "~/Git/leetcode_rust")
 (setq rustic-lsp-server 'rust-analyzer)
 
+(after!
+    (setq lsp-haskell-formatting-provider "stylish-haskell"))
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This section contains configuration for org mode ;;
 ;; 1. GTD                                           ;;
