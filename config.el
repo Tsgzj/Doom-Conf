@@ -90,9 +90,6 @@
 (evil-set-initial-state 'eshell 'normal)
 
 ;; haskell symbols
-;; (add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
-(global-prettify-symbols-mode 1)
-
 (add-hook
  'haskell-mode-hook
  (lambda ()
@@ -109,7 +106,7 @@
            ("isSubsetOf" . #x2287)
            ("union" . #x222A)
            ("intersect" . #x2229)
-           (" \. " .  #x2218) ;; only matching dot with space around, TODO enhance
+           (" \. " . (?\s (Br . Bl) ?\s (Bc . Bc) ?\u2218)) ;; need to add more space
            ))))
 
 ;; enable 3 state org-cycle

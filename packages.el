@@ -51,4 +51,3 @@
 
 (package! ranger)
 (package! excorporate)
-(package! pretty-mode)
