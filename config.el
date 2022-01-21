@@ -21,7 +21,7 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Cascadia Code PL"
+(setq doom-font (font-spec :family  "Cascadia Code PL"
                            :size 15
                            :weight 'light
                            :width 'narrow))
@@ -51,7 +51,7 @@
 (setq rustic-lsp-server 'rust-analyzer)
 
 (after!
-    (setq lsp-haskell-formatting-provider "stylish-haskell"))
+    (setq lsp-haskell-formatting-provider "brittany"))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This section contains configuration for org mode ;;
@@ -88,6 +88,16 @@
           (tags-todo "READING")))))
 
 (evil-set-initial-state 'eshell 'normal)
+
+;; haskell symbols
+(add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
+(global-prettify-symbols-mode 1)
+
+(add-hook
+ 'haskell-mode-hook
+ (lambda ()
+   (mapc (lambda (pair) (push pair prettify-symbols-alist))
+         '())))
 
 ;; enable 3 state org-cycle
 (after! evil-org
