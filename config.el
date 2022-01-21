@@ -97,7 +97,19 @@
  'haskell-mode-hook
  (lambda ()
    (mapc (lambda (pair) (push pair prettify-symbols-alist))
-         '())))
+         '(                             ;("Bool" .  #x1D539)
+           ("Integer" . #x2124)
+           ("True" . #x27D9)
+           ("False" . #x27D8)
+           ("return" . #x03B7)
+           ("forall" . #x2200)
+           ("join" . #x03BC)
+           ("elem" . #x2208)
+           ("notElem" . #x2209)
+           ("isSubsetOf" . #x2287)
+           ("union" . #x222A)
+           ("intersect" . #x2229)
+           ))))
 
 ;; enable 3 state org-cycle
 (after! evil-org
