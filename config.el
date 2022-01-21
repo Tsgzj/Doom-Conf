@@ -90,28 +90,41 @@
 (evil-set-initial-state 'eshell 'normal)
 
 ;; haskell symbols
-(add-hook
- 'haskell-mode-hook
- (lambda ()
-   (mapc (lambda (pair) (push pair prettify-symbols-alist))
-         '(                             ;("Bool" .  #x1D539)
-           ("Integer" . #x2124)
-           ("True" . #x27D9)
-           ("False" . #x27D8)
-           ("return" . #x03B7)
-           ("forall" . #x2200)
-           ("join" . #x03BC)
-           ("elem" . #x2208)
-           ("notElem" . #x2209)
-           ("isSubsetOf" . #x2287)
-           ("union" . #x222A)
-           ("intersect" . #x2229)
-           (" \. " . (?\s (Br . Bl) ?\s (Bc . Bc) ?\u2218)) ;; need to add more space
-           ))))
+(global-pretty-mode t)
+(pretty-deactivate-groups
+ '(:punctuation :arrows :set :logic :arrows-twoheaded :ordering :equality))
+(pretty-activate-groups
+ '(:greek :arithmetic-nary :sub-and-superscripts))
+(add-hook 'haskell-mode-hook
+          (lambda ()
+            (mapc (lambda (pair) (push pair prettify-symbols-alist))
+                  doom/haskell-pretty-alist)))
+
+(defvar doom/haskell-pretty-alist
+  '(
+    ;; Type
+                                        ;("Bool" .  #x1D539)
+    ("Integer" . #x2124)
+    ;; True/False
+    ("True" . #x27D9)
+    ("False" . #x27D8)
+    ;; Rterun/Join
+    ("return" . #x03B7)
+    ("join" . #x03BC)
+    ;; Quantifier
+    ("forall" . #x2200)
+    ;; Set
+    ("elem" . #x2208)
+    ("notElem" . #x2209)
+    ("isSubsetOf" . #x2287)
+    ("union" . #x222A)
+    ;; Ring
+    (" \. " . (?\s (Br . Bl) ?\s (Bc . Bc) ?\u2218))
+    )) ;; need to add more space
 
 ;; enable 3 state org-cycle
 (after! evil-org
-  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+        (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
