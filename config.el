@@ -100,6 +100,15 @@
             (mapc (lambda (pair) (push pair prettify-symbols-alist))
                   doom/haskell-pretty-alist)))
 
+;; dap mode
+;; forcing load dap-go which is not automatically loaded after go-mode
+(add-hook 'go-mode-hook
+          (lambda ()
+            (require 'dap-go)))
+;; launch dap-hydra
+(add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-hydra)))
+
 (defvar doom/haskell-pretty-alist
   '(
     ;; Type
