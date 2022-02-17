@@ -100,15 +100,6 @@
             (mapc (lambda (pair) (push pair prettify-symbols-alist))
                   doom/haskell-pretty-alist)))
 
-;; dap mode
-;; forcing load dap-go which is not automatically loaded after go-mode
-(add-hook 'go-mode-hook
-          (lambda ()
-            (require 'dap-go)))
-;; launch dap-hydra
-(add-hook 'dap-stopped-hook
-          (lambda (arg) (call-interactively #'dap-hydra)))
-
 (defvar doom/haskell-pretty-alist
   '(
     ;; Type
@@ -130,10 +121,22 @@
     ;; Ring
     (" \. " . (?\s (Br . Bl) ?\s (Bc . Bc) ?\u2218))
     )) ;; need to add more space
+;;
+;; dap mode
+;; forcing load dap-go which is not automatically loaded after go-mode
+(add-hook 'go-mode-hook
+          (lambda ()
+            (require 'dap-go)))
+;; launch dap-hydra
+(add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-hydra)))
+
+;; Geiser chez
+(setq geiser-chez-binary "chez")
 
 ;; enable 3 state org-cycle
 (after! evil-org
-        (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
