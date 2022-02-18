@@ -132,7 +132,10 @@
           (lambda (arg) (call-interactively #'dap-hydra)))
 
 ;; Geiser chez
-(setq geiser-chez-binary "chez")
+(setq geiser-chez-binary
+      (if (eq system-type 'darwin)
+          "chez"
+        "chez-scheme"))
 
 ;; enable 3 state org-cycle
 (after! evil-org
