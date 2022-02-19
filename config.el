@@ -100,6 +100,8 @@
             (mapc (lambda (pair) (push pair prettify-symbols-alist))
                   doom/haskell-pretty-alist)))
 
+(add-hook 'dap-stopped-hook (lambda (arg) (call-interactively #'dap-hydra)))
+
 (defvar doom/haskell-pretty-alist
   '(
     ;; Type
