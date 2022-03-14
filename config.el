@@ -59,6 +59,7 @@
 ;; 2. Zettlekasten                                  ;;
 ;; * org-roam                                       ;;
 ;; * deft                                           ;;
+;; 3. Babel
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq org-agenda-files '("~/org/GTD/"))
 
@@ -86,6 +87,11 @@
           (tags-todo "PERSONAL")
           (tags-todo "COMPUTER")
           (tags-todo "READING")))))
+
+;; Ignoring popup rule
+(after! org
+  (setq org-src-window-setup 'current-window)
+  (set-popup-rule! "^\\*Org Src" :ignore t))
 
 (evil-set-initial-state 'eshell 'normal)
 
