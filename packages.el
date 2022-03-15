@@ -52,3 +52,4 @@
 (package! ranger)
 (package! excorporate)
 (package! pretty-mode)
+(package! ob-kotlin)
