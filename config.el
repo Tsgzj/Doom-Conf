@@ -50,8 +50,8 @@
 (setq leetcode-directory "~/Git/leetcode_rust")
 (setq rustic-lsp-server 'rust-analyzer)
 
-(after!
-  (setq lsp-haskell-formatting-provider "brittany"))
+(after! haskell
+    (setq lsp-haskell-formatting-provider "brittany"))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This section contains configuration for org mode ;;
@@ -106,7 +106,7 @@
             (mapc (lambda (pair) (push pair prettify-symbols-alist))
                   doom/haskell-pretty-alist)))
 
-(add-hook 'dap-stopped-hook (lambda (arg) (call-interactively #'dap-hydra)))
+(add-hook 'dap-stopped-hook (lambda () (call-interactively #'dap-hydra)))
 
 (defvar doom/haskell-pretty-alist
   '(
