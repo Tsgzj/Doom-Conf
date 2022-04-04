@@ -93,6 +93,9 @@
   (setq org-src-window-setup 'current-window)
   (set-popup-rule! "^\\*Org Src" :ignore t))
 
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+
 (evil-set-initial-state 'eshell 'normal)
 
 ;; haskell symbols
