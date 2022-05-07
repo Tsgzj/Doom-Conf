@@ -46,7 +46,6 @@
 (setq doom-theme 'doom-solarized-light)
 
 (nano-modeline-mode t)
-(powerline-nano-theme)
 
 (setq leetcode-prefer-language "rust")
 (setq leetcode-save-solutions t)
