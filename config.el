@@ -43,7 +43,10 @@
 
 ;; (add-hook 'emacs-startup-hook 'eshell)
 (display-time-mode 1)
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-solarized-light)
+
+(nano-modeline-mode t)
+(powerline-nano-theme)
 
 (setq leetcode-prefer-language "rust")
 (setq leetcode-save-solutions t)

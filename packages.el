@@ -54,3 +54,5 @@
 (package! pretty-mode)
 (package! ob-kotlin)
 (package! org-modern)
+(package! nano-theme)
+(package! nano-modeline)
