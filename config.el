@@ -43,7 +43,7 @@
 
 ;; (add-hook 'emacs-startup-hook 'eshell)
 (display-time-mode 1)
-(setq doom-theme 'doom-solarized-light)
+(setq doom-theme 'doom-one-light)
 
 (nano-modeline-mode t)
 
