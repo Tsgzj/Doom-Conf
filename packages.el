@@ -54,5 +54,8 @@
 (package! pretty-mode)
 (package! ob-kotlin)
 (package! org-modern)
-(package! nano-theme)
+(package! mini-frame)
 (package! nano-modeline)
+(package! nano-theme)
+(package! nano-minibuffer
+  :recipe (:host github :repo "rougier/nano-minibuffer"))

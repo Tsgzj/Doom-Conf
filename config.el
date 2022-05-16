@@ -22,9 +22,9 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (setq doom-font (font-spec :family  "Cascadia Code PL"
-                           :size 15
-                           :weight 'light
-                           :width 'narrow))
+                            :size 15
+                            :weight 'light
+                            :width 'narrow))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -43,9 +43,22 @@
 
 ;; (add-hook 'emacs-startup-hook 'eshell)
 (display-time-mode 1)
-(setq doom-theme 'doom-one-light)
 
 (nano-modeline-mode t)
+(setq default-frame-alist
+      (append (list
+	           '(min-height . 1)
+               '(height     . 45)
+	           '(min-width  . 1)
+               '(width      . 81)
+               '(vertical-scroll-bars . nil)
+               '(internal-border-width . 12)
+               '(left-fringe    . 1)
+               '(right-fringe   . 1)
+               '(tool-bar-lines . 0)
+               '(menu-bar-lines . 0))))
+
+(setq doom-theme 'nano-light)
 
 (setq leetcode-prefer-language "rust")
 (setq leetcode-save-solutions t)
