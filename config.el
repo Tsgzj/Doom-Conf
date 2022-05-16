@@ -43,22 +43,18 @@
 
 ;; (add-hook 'emacs-startup-hook 'eshell)
 (display-time-mode 1)
-
 (nano-modeline-mode t)
 (setq default-frame-alist
       (append (list
-	           '(min-height . 1)
                '(height     . 45)
-	           '(min-width  . 1)
                '(width      . 81)
                '(vertical-scroll-bars . nil)
-               '(internal-border-width . 12)
+               '(internal-border-width . 8)
                '(left-fringe    . 1)
                '(right-fringe   . 1)
                '(tool-bar-lines . 0)
                '(menu-bar-lines . 0))))
-
-(setq doom-theme 'nano-light)
+(setq doom-theme 'doom-one-light)
 
 (setq leetcode-prefer-language "rust")
 (setq leetcode-save-solutions t)
