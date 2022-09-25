@@ -2,7 +2,7 @@
 (use-package! leetcode)
 
 (map! :leader
-      (:prefix-map ("a L" . "Leetcode")
+      (:prefix-map ("a l c" . "Leetcode")
        :desc "Leetcode"             "l" #'leetcode
        :desc "Show current problem" "s" #'leetcode-show-current-problem
        :desc "Refresh"              "r" #'leetcode-refresh
