@@ -107,6 +107,10 @@
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
+(use-package lsp-grammarly
+  :ensure t
+  :hook ((text-mode . (lambda () (lsp))) (org-mode . (lambda () (lsp)))))
+
 (evil-set-initial-state 'eshell 'normal)
 
 ;; haskell symbols

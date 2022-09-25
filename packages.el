@@ -59,3 +59,4 @@
 (package! nano-theme)
 (package! nano-minibuffer
   :recipe (:host github :repo "rougier/nano-minibuffer"))
+(package! lsp-grammarly)
