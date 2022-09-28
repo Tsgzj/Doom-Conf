@@ -72,18 +72,27 @@
 ;; * deft                                           ;;
 ;; 3. Babel
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq org-agenda-files '("~/org/GTD/"))
+(setq org-agenda-files '("~/org"))
+(setq org-inbox "~/org/inbox.org")
 
-(setq org-capture-templates '(("t" "Todo [inbox]" entry
-                               (file+headline "~/org/GTD/inbox.org" "Tasks")
-                               "* TODO %i%?")
-                              ("T" "Tickler" entry
-                               (file+headline "~/org/GTD/tickler.org" "Tickler")
-                               "* %i%? \n %U")))
+(setq org-capture-templates
+      '(("t" "Todo" entry (file org-inbox)
+         "* TODO %?")
+        ("n" "Note" entry (file+headline org-inbox "Notes")
+         "* TODO %? :notes:")
+        ("e" "Email" entry (file+headline org-inbox "Emails")
+         "* TODO [#A] Reply: %a :@email:" :immediate-finish f)
+        ("l" "Link" entry (file org-inbox)
+         "* TODO %(org-cliplink-capture) :notes:" :immediate-finish t)
+        ("c" "org-protocol-capture" entry (file org-inbox)
+         "* TODO [[%:link][%:description]]\n\n %i :notes:" :immediate-finish t)))
 
-(setq org-refile-targets '(("~/org/GTD/Tickler.org" :maxlevel . 2)
-                           ("~/org/GTD/GTD.org" :maxlevel . 3)
-                           ("~/org/GTD/Archive.org" :maxlevel . 3)))
+
+(setq org-refile-use-outline-path 'file
+      org-outline-path-complete-in-steps nil)
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+(setq org-refile-targets '(("~/org/GTD.org" :maxlevel . 3)
+                           ("~/org/Archive.org" :maxlevel . 3)))
 
 (setq org-agenda-custom-commands
       '(("D" "Daily Action List"
