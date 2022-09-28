@@ -72,8 +72,9 @@
 ;; * deft                                           ;;
 ;; 3. Babel
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'find-lisp)
-(setq org-agenda-files (find-lisp-find-files "~/org" "\.org$"))
+;; (require 'find-lisp)
+;; (setq org-agenda-files (find-lisp-find-files "~/org" "\.org$"))
+(setq org-agenda-files '("~/org"))
 (setq org-inbox "~/org/inbox.org")
 
 (setq org-capture-templates
