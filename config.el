@@ -72,7 +72,8 @@
 ;; * deft                                           ;;
 ;; 3. Babel
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq org-agenda-files '("~/org"))
+(require 'find-lisp)
+(setq org-agenda-files (find-lisp-find-files "~/org" "\.org$"))
 (setq org-inbox "~/org/inbox.org")
 
 (setq org-capture-templates
@@ -86,7 +87,6 @@
          "* TODO %(org-cliplink-capture) :notes:" :immediate-finish t)
         ("c" "org-protocol-capture" entry (file org-inbox)
          "* TODO [[%:link][%:description]]\n\n %i :notes:" :immediate-finish t)))
-
 
 (setq org-refile-use-outline-path 'file
       org-outline-path-complete-in-steps nil)
