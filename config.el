@@ -74,40 +74,92 @@
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (require 'find-lisp)
 ;; (setq org-agenda-files (find-lisp-find-files "~/org" "\.org$"))
-(setq org-agenda-files '("~/org"))
 (setq org-inbox "~/org/inbox.org")
 
-(setq org-capture-templates
-      '(("t" "Todo" entry (file org-inbox)
-         "* TODO %?")
-        ("n" "Note" entry (file+headline org-inbox "Notes")
-         "* TODO %? :notes:")
-        ("e" "Email" entry (file+headline org-inbox "Emails")
-         "* TODO [#A] Reply: %a :@email:" :immediate-finish f)
-        ("l" "Link" entry (file org-inbox)
-         "* TODO %(org-cliplink-capture) :notes:" :immediate-finish t)
-        ("c" "org-protocol-capture" entry (file org-inbox)
-         "* TODO [[%:link][%:description]]\n\n %i :notes:" :immediate-finish t)))
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/org/Zettelkasten/"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
 
-(setq org-refile-use-outline-path 'file
-      org-outline-path-complete-in-steps nil)
-(setq org-refile-allow-creating-parent-nodes 'confirm)
-(setq org-refile-targets '(("~/org/GTD.org" :maxlevel . 3)
-                           ("~/org/Archive.org" :maxlevel . 3)))
+(use-package! vulpea
+  :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable))
+  :bind (("C-c n i" . vulpea-insert)
+         ("C-c n f" . vulpea-find)))
 
-(setq org-agenda-custom-commands
-      '(("D" "Daily Action List"
-         ((agenda "" ((org-agenda-ndays 1)
-                      (org-agenda-sorting-strategy
-                       (quote ((agenda time-up priority-down tag-up) )))
-                      (org-deadline-warning-days 1)
-                      ))))
-        ("H" "Default view"
-         ((agenda)
-          (tags-todo "OFFICE")
-          (tags-todo "PERSONAL")
-          (tags-todo "COMPUTER")
-          (tags-todo "READING")))))
+(after! (org-agenda org-roam)
+  (defun vulpea-task-p ()
+    "Return non-nil if current buffer has any todo entry.
+TODO entries marked as done are ignored, meaning the this
+function returns nil if current buffer contains only completed
+tasks."
+    (seq-find                                 ; (3)
+     (lambda (type)
+       (eq type 'todo))
+     (org-element-map                         ; (2)
+         (org-element-parse-buffer 'headline) ; (1)
+         'headline
+       (lambda (h)
+         (org-element-property :todo-type h)))))
+
+  (defun vulpea-task-update-tag ()
+    "Update task tag in the current buffer."
+    (when (and (not (active-minibuffer-window))
+               (vulpea-buffer-p))
+      (save-excursion
+        (goto-char (point-min))
+        (let* ((tags (vulpea-buffer-tags-get))
+               (original-tags tags))
+          (if (vulpea-task-p)
+              (setq tags (cons "task" tags))
+            (setq tags (remove "task" tags)))
+
+          ;; cleanup duplicates
+          (setq tags (seq-uniq tags))
+
+          ;; update tags if changed
+          (when (or (seq-difference tags original-tags)
+                    (seq-difference original-tags tags))
+            (apply #'vulpea-buffer-tags-set tags))))))
+
+  (defun vulpea-buffer-p ()
+    "Return non-nil if the currently visited buffer is a note."
+    (and buffer-file-name
+         (string-prefix-p
+          (expand-file-name (file-name-as-directory org-roam-directory))
+          (file-name-directory buffer-file-name))))
+
+  (defun vulpea-task-files ()
+    "Return a list of note files containing 'task' tag." ;
+    (seq-uniq
+     (seq-map
+      #'car
+      (org-roam-db-query
+       [:select [nodes:file]
+        :from tags
+        :left-join nodes
+        :on (= tags:node-id nodes:id)
+        :where (or (like tag (quote "%\"task\"%"))
+                   (like tag (quote "%\"schedule\"%")))]))))
+
+  (defun vulpea-agenda-files-update (&rest _)
+    "Update the value of `org-agenda-files'."
+    (setq org-agenda-files (vulpea-task-files)))
+
+  (add-hook 'find-file-hook #'vulpea-task-update-tag)
+  (add-hook 'before-save-hook #'vulpea-task-update-tag)
+
+  (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
+  (advice-add 'org-todo-list :before #'vulpea-agenda-files-update))
 
 ;; Ignoring popup rule
 (after! org
