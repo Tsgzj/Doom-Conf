@@ -72,8 +72,6 @@
 ;; * deft                                           ;;
 ;; 3. Babel
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (require 'find-lisp)
-;; (setq org-agenda-files (find-lisp-find-files "~/org" "\.org$"))
 (setq org-inbox "~/org/inbox.org")
 
 (use-package org-roam
@@ -168,6 +166,8 @@ tasks."
 
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+
+(setq deft-directory "~/org/Zettelkasten")
 
 (use-package lsp-grammarly
   :ensure t
