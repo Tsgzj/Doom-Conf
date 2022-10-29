@@ -61,3 +61,4 @@
   :recipe (:host github :repo "rougier/nano-minibuffer"))
 (package! vulpea)
 (package! modus-themes)
+(package! org-super-agenda)
