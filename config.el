@@ -167,11 +167,11 @@ tasks."
   '((sequence
      "TODO(t!)" ; Initial creation
      "STR(s@)"; Work in progress
-     "WAIT(w@)" ; My choice to pause task
-     "BLOCKED(b@)" ; Not my choice to pause task
+     "WAIT(w@/!)" ; My choice to pause task
+     "BLOCKED(b@/!)" ; Not my choice to pause task
      "REVIEW(r!)" ; Inspect or Share Time
      "|" ; Remaining close task
-     "DONE(d@)" ; Normal completion
+     "DONE(d@!)" ; Normal completion
      "CANCELED(c@)" ; Not going to od it
      "DUPLICATE(p@)" ; Already did it
      ))))
